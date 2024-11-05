@@ -28,17 +28,22 @@ def EmployeeListCreate(request):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT'])
+@api_view(['GET', 'PUT'])
 @permission_classes([IsAuthenticated])
 def EmployeeUpdate(request, pk):
   print(pk)
-  employee = Employee.objects.get(id=pk)
-  serializer = EmployeeSerializer(employee, data=request.data)
   print(request.data)
-  if serializer.is_valid():
-    serializer.save()
+  if request.method == 'GET':
+    employee = Employee.objects.get(id=pk)
+    serializer = EmployeeSerializer(employee)
     return Response(serializer.data, status=status.HTTP_200_OK)
-  return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  elif request.method == 'PUT':
+    employee = Employee.objects.get(id=pk)
+    serializer = EmployeeSerializer(employee, data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])

@@ -32,17 +32,21 @@ def EmployeeListCreate(request):
 @permission_classes([IsAuthenticated])
 def EmployeeUpdate(request, pk):
   print(pk)
-  print(request.data)
+  print(request.data, 1)
   if request.method == 'GET':
     employee = Employee.objects.get(id=pk)
     serializer = EmployeeSerializer(employee)
     return Response(serializer.data, status=status.HTTP_200_OK)
   elif request.method == 'PUT':
+    print(request.data, 2)
     employee = Employee.objects.get(id=pk)
+    print(request.data, 3)
     serializer = EmployeeSerializer(employee, data=request.data)
+    print(request.data, 4)
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data, status=status.HTTP_200_OK)
+    print(request.data, 5)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])

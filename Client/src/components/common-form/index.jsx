@@ -12,17 +12,13 @@ import {
 } from "../ui/select";
 import { useContext, useEffect } from "react";
 
-function CommonForm({ formControls = [], formData, btnText, handleSubmit }) {
+function CommonEmployeeForm({
+  formControls = [],
+  btnText,
+  handleSubmit,
+}) {
   const {
     loading,
-    firstname,
-    setFirstname,
-    lastname,
-    setLastname,
-    username,
-    setUsername,
-    password,
-    setPassword,
     fullname,
     setFullname,
     email,
@@ -33,42 +29,13 @@ function CommonForm({ formControls = [], formData, btnText, handleSubmit }) {
     setSalary,
     department,
     setDepartment,
-    currentEditId,
+    employeeFormData,
   } = useContext(ContextComponent);
-  // const setValue = (label) => {
-  //   label === "First Name"
-  //     ? firstname
-  //     : label === "Last Name"
-  //     ? lastname
-  //     : label === "Email"
-  //     ? username
-  //     : label === "Password"
-  //     ? password
-  //     : label === "Full Name"
-  //     ? fullname
-  //     : label === "Email "
-  //     ? email
-  //     : label === "Phone"
-  //     ? phone
-  //     : label === "Salary"
-  //     ? salary
-  //     : label === "Department"
-  //     ? department
-  //     : null;
-  // };
   const setValue = (label) => {
-    if (formData) {
-      return formData[label]; // Assuming your formData keys match the label.
+    if (employeeFormData) {
+      return employeeFormData[label]; // Assuming your formData keys match the label.
     }
-    return label === "First Name"
-      ? firstname
-      : label === "Last Name"
-      ? lastname
-      : label === "Email"
-      ? username
-      : label === "Password"
-      ? password
-      : label === "Full Name"
+    return label === "Full Name"
       ? fullname
       : label === "Email "
       ? email
@@ -82,15 +49,7 @@ function CommonForm({ formControls = [], formData, btnText, handleSubmit }) {
   };
   const setState = (label, value) => {
     console.log(label, value);
-    label === "First Name"
-      ? setFirstname(value)
-      : label === "Last Name"
-      ? setLastname(value)
-      : label === "Email"
-      ? setUsername(value)
-      : label === "Password"
-      ? setPassword(value)
-      : label === "Full Name"
+    label === "Full Name"
       ? setFullname(value)
       : label === "Email "
       ? setEmail(value)
@@ -103,31 +62,28 @@ function CommonForm({ formControls = [], formData, btnText, handleSubmit }) {
       : null;
   };
   useEffect(() => {
-    if (formData) {
-      setFirstname(formData.firstname || "");
-      setLastname(formData.lastname || "");
-      setUsername(formData.username || "");
-      setPassword(formData.password || "");
-      setFullname(formData.fullname || "");
-      setEmail(formData.email || "");
-      setPhone(formData.phone || "");
-      setSalary(formData.salary || "");
-      setDepartment(formData.department || "");
+    if (employeeFormData) {
+      setFullname(employeeFormData.getValues().fullname || "");
+      setEmail(employeeFormData.getValues().email || "");
+      setPhone(employeeFormData.getValues().phone || "");
+      setSalary(employeeFormData.getValues().salary || "");
+      setDepartment(employeeFormData.getValues().department || "");
+      console.log(fullname, email, phone, salary, department);
     }
-  }, [formData]);
+  }, [employeeFormData]);
   const inputStyles =
     "w-full rounded h-[50px] border-none text-black bg-gray-200 text-[16px] outline-none drop-shadow-sm transition-all duration-300 ease-in-out focus:bg-gray-100 focus:drop-shadow-lg focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
   return (
-    <Form {...formData}>
-      <form onSubmit={handleSubmit}>
+    <Form {...employeeFormData}>
+      <form onSubmit={employeeFormData.handleSubmit(handleSubmit)}>
         {formControls?.length > 0
           ? formControls.map((controlItem) => (
               <FormField
-                control={formData.control}
+                control={employeeFormData.control}
                 key={controlItem.id}
                 name={controlItem.id}
                 render={({ field }) => {
-                  console.log(field);
+                  // console.log(field);
                   return (
                     <FormItem>
                       <FormLabel>{controlItem.label}</FormLabel>
@@ -136,41 +92,40 @@ function CommonForm({ formControls = [], formData, btnText, handleSubmit }) {
                           <Input
                             placeholder={controlItem.placeholder}
                             type={controlItem.type}
-                            // {...field}
+                            {...field}
                             value={
                               // currentEditId
-                                //  field.value
-                                 setValue(controlItem.label)
+                              //  field.value
+                              setValue(controlItem.label)
                             }
                             onChange={
                               // currentEditId
-                              //   ? field.onChange
-                                 (e) =>
-                                    setState(controlItem.label, e.target.value)
+                              //  field.onChange
+                              (e) => setState(controlItem.label, e.target.value)
                             }
                             className={inputStyles}
                           />
                         </FormControl>
                       ) : controlItem.componentType === "select" ? (
                         <Select
+                          value={
+                            // currentEditId
+                            //  controlItem.options.find(
+                            //     (optionItem) =>
+                            //       optionItem.label === field.value
+                            //   )?.id
+                            setValue(controlItem.label)
+                          }
                           onValueChange={(selectedId) => {
                             const selectedOption = controlItem.options.find(
                               (optionItem) => optionItem.id === selectedId
                             );
                             if (selectedOption) {
-                              // currentEditId ? 
-                              // (field.onChange(selectedOption.label)) 
-                              setState(controlItem.label, selectedOption.label)
+                              // currentEditId ?
+                              // (field.onChange(selectedOption.label))
+                              setState(controlItem.label, selectedOption.label);
                             }
                           }}
-                          value={
-                            // currentEditId
-                              //  controlItem.options.find(
-                              //     (optionItem) =>
-                              //       optionItem.label === field.value
-                              //   )?.id
-                               setValue(controlItem.label)
-                          }
                         >
                           <FormControl>
                             <SelectTrigger className={inputStyles}>
@@ -208,4 +163,4 @@ function CommonForm({ formControls = [], formData, btnText, handleSubmit }) {
   );
 }
 
-export default CommonForm;
+export default CommonEmployeeForm;

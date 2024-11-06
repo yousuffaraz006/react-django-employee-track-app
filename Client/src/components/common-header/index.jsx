@@ -26,9 +26,6 @@ function Header() {
             <Link className="text-black text-xl font-bold" to={"/"}>
               Home
             </Link>
-            <Link className="text-black text-xl font-bold" to={"/about"}>
-              About
-            </Link>
             <Link className="text-black text-xl font-bold" to={"/contact"}>
               Contact
             </Link>

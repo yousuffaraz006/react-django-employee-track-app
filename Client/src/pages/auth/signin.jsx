@@ -1,6 +1,6 @@
 import api from "@/api";
 import CommonButton from "@/components/common-button";
-import CommonAuthForm from "@/components/common-form/index1";
+import CommonForm from "@/components/common-form";
 import { signInFormControls } from "@/config";
 import { ACCESS_TOKEN, REFRESH_TOKEN, } from "@/constants";
 import { ContextComponent } from "@/context";
@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-  const { setLoading, username, password, authFormData, toast } = useContext(ContextComponent);
+  const { setLoading, username, password, setUsername, setPassword, toast } = useContext(ContextComponent);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +22,8 @@ function SignIn() {
         title: "Signed In Successfully",
         description: `Welcome back, Mr. ${username}!`,
       });
+      setUsername("");
+      setPassword("");
     } catch (error) {
       toast({
         title: "ERROR!",
@@ -36,9 +38,8 @@ function SignIn() {
       <div className="flex flex-col h-full justify-center items-center bg-white">
         <h3 className="text-3xl font-bold">Welcome</h3>
         <div className="mt-4 ">
-          <CommonAuthForm
+          <CommonForm
             formControls={signInFormControls}
-            formData={authFormData}
             btnText={"Sign In"}
             handleSubmit={handleSubmit}
           />

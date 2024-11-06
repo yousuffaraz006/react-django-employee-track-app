@@ -12,9 +12,17 @@ import {
 } from "../ui/select";
 import { useContext } from "react";
 
-function CommonEmployeeForm({ formControls = [], btnText, handleSubmit }) {
+function CommonForm({ formControls = [], btnText, handleSubmit }) {
   const {
     loading,
+    firstname,
+    setFirstname,
+    lastname,
+    setLastname,
+    username,
+    setUsername,
+    password,
+    setPassword,
     fullname,
     setFullname,
     email,
@@ -28,7 +36,15 @@ function CommonEmployeeForm({ formControls = [], btnText, handleSubmit }) {
     employeeFormData,
   } = useContext(ContextComponent);
   const setValue = (label) => {
-    return label === "Full Name"
+    return label === "First Name"
+      ? firstname
+      : label === "Last Name"
+      ? lastname
+      : label === "Email"
+      ? username
+      : label === "Password"
+      ? password
+      : label === "Full Name"
       ? fullname
       : label === "Email "
       ? email
@@ -42,7 +58,15 @@ function CommonEmployeeForm({ formControls = [], btnText, handleSubmit }) {
   };
   const setState = (label, value) => {
     console.log(label, value);
-    label === "Full Name"
+    label === "First Name"
+      ? setFirstname(value)
+      : label === "Last Name"
+      ? setLastname(value)
+      : label === "Email"
+      ? setUsername(value)
+      : label === "Password"
+      ? setPassword(value)
+      : label === "Full Name"
       ? setFullname(value)
       : label === "Email "
       ? setEmail(value)
@@ -134,4 +158,4 @@ function CommonEmployeeForm({ formControls = [], btnText, handleSubmit }) {
   );
 }
 
-export default CommonEmployeeForm;
+export default CommonForm;

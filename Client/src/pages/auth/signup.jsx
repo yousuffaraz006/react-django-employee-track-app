@@ -1,6 +1,6 @@
 import api from "@/api";
 import CommonButton from "@/components/common-button";
-import CommonAuthForm from "@/components/common-form/index1";
+import CommonForm from "@/components/common-form";
 import { signUpFormControls } from "@/config";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/constants";
 import { ContextComponent } from "@/context";
@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const { setLoading, firstname, lastname, username, password, authFormData, toast } =
+  const { setLoading, firstname, lastname, username, password, setFirstname, setLastname, setUsername, setPassword, toast } =
     useContext(ContextComponent);
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
@@ -27,6 +27,10 @@ function SignUp() {
         description:
           "Welcome to ABC XYZ Co. We hope you a seemingless expperience.",
       });
+      setFirstname("");
+      setLastname("");
+      setUsername("");
+      setPassword("");
     } catch (error) {
       toast({
         title: "ERROR!",
@@ -41,9 +45,8 @@ function SignUp() {
       <div className="flex flex-col h-full justify-center items-center bg-white">
         <h3 className="text-3xl font-bold">Welcome</h3>
         <div className="mt-4 ">
-          <CommonAuthForm
+          <CommonForm
             formControls={signUpFormControls}
-            formData={authFormData}
             btnText={"Sign Up"}
             handleSubmit={handleSubmit}
           />

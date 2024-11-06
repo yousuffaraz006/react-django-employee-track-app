@@ -12,7 +12,7 @@ function CommonDialog({
   handleSubmit,
   btnText,
 }) {
-  const { setCurrentEditId } = useContext(ContextComponent);
+  const { setCurrentEditId, setFullname, setEmail, setPhone, setSalary, setDepartment } = useContext(ContextComponent);
   return (
     <Dialog
       open={showDialog}
@@ -20,6 +20,11 @@ function CommonDialog({
         setShowDialog(false);
         formData.reset();
         setCurrentEditId(null);
+        setFullname("");
+        setEmail("");
+        setPhone("");
+        setSalary("");
+        setDepartment("");
       }}
     >
       <DialogContent className="sm:max-w-screen h-[450px] overflow-auto">

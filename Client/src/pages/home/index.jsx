@@ -16,11 +16,17 @@ function HomePage() {
     setEmployeesList,
     setShowDialog,
     currentEditId,
+    setCurrentEditId,
     fullname,
+    setFullname,
     email,
+    setEmail,
     phone,
+    setPhone,
     salary,
+    setSalary,
     department,
+    setDepartment,
   } = useContext(ContextComponent);
   useEffect(() => {
     setLoading(true);
@@ -77,6 +83,11 @@ function HomePage() {
           toast({
             title: "Employee created successfully",
           });
+          setFullname("");
+          setEmail("");
+          setPhone("");
+          setSalary("");
+          setDepartment("");
           getEmployee();
           setLoading(false);
           setShowDialog(false);
@@ -96,6 +107,45 @@ function HomePage() {
           variant: "failure",
         });
         setLoading(false);
+      });
+  };
+  const updateEmployee = (e) => {
+    e.preventDefault();
+    api
+      .put(`/employee/detail/${currentEditId}/`, {
+        fullname,
+        email,
+        phone,
+        salary,
+        department,
+      })
+      .then((res) => {
+        if (res.status === 200 || res.status === 204) {
+          toast({
+            title: "Employee updated successfully",
+          });
+          setFullname("");
+          setEmail("");
+          setPhone("");
+          setSalary("");
+          setDepartment("");
+          setCurrentEditId("");
+          setShowDialog(false);
+          getEmployee();
+        } else {
+          toast({
+            title: "Error",
+            description: "Employee not updated: " + res.status,
+            variant: "failure",
+          });
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: "Error",
+          description: String(err),
+          variant: "failure",
+        });
       });
   };
   const deleteEmployee = (pk) => {
@@ -130,7 +180,7 @@ function HomePage() {
   };
   function handleSubmit(e) {
     if (currentEditId) {
-      updateEmployee(e, currentEditId);
+      updateEmployee(e);
     } else {
       createEmployee(e);
     }

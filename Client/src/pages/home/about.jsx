@@ -1,12 +1,30 @@
+import api from "@/api";
 import CommonEmployeeForm from "@/components/common-form";
 import Header from "@/components/common-header";
 import { addNewEmployeeFormControls } from "@/config";
 import { ACCESS_TOKEN } from "@/constants";
+import { ContextComponent } from "@/context";
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function DetailPage() {
+  const {
+    setFullname,
+    fullname,
+    setEmail,
+    email,
+    setPhone,
+    phone,
+    setSalary,
+    salary,
+    setDepartment,
+    department,
+    currentEditId,
+    setCurrentEditId,
+    toast,
+    navigate,
+  } = useContext(ContextComponent);
   const { pk } = useParams();
   const fetchEmployeeDetail = async () => {
     try {
@@ -18,20 +36,25 @@ function DetailPage() {
           },
         }
       );
-      console.log(apiResponse.data)
+      console.log(apiResponse.data);
+      setFullname(apiResponse.data.fullname);
+      setEmail(apiResponse.data.email);
+      setPhone(apiResponse.data.phone);
+      setSalary(apiResponse.data.salary);
+      setDepartment(apiResponse.data.department);
+      setCurrentEditId(apiResponse.data.id);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   useEffect(() => {
     console.log(pk);
     fetchEmployeeDetail();
   }, [pk]);
-  const updateEmployee = (e, employeeId) => {
+  const updateEmployee = (e) => {
     e.preventDefault();
-    setLoading(true);
     api
-      .put(`/employee/update/${employeeId}/`, {
+      .put(`/employee/detail/${currentEditId}/`, {
         fullname,
         email,
         phone,
@@ -44,16 +67,18 @@ function DetailPage() {
           toast({
             title: "Employee updated successfully",
           });
-          getEmployee();
-          setLoading(false);
-          setShowDialog(false);
+          navigate("/")
+          setFullname("");
+          setEmail("");
+          setPhone("");
+          setSalary("");
+          setDepartment("");
         } else {
           toast({
             title: "Error",
             description: "Employee not updated: " + res.status,
             variant: "failure",
           });
-          setLoading(false);
         }
       })
       .catch((err) => {
@@ -62,7 +87,6 @@ function DetailPage() {
           description: String(err),
           variant: "failure",
         });
-        setLoading(false);
       });
   };
   return (

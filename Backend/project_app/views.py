@@ -38,6 +38,7 @@ def EmployeeDetail(request, pk):
     serializer = EmployeeSerializer(employee)
     return Response(serializer.data, status=status.HTTP_200_OK)
   elif request.method == 'PUT':
+    print("Came Here")
     print(request.data, 2)
     employee = Employee.objects.get(id=pk)
     print(request.data, 3)

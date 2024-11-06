@@ -10,13 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
-function CommonEmployeeForm({
-  formControls = [],
-  btnText,
-  handleSubmit,
-}) {
+function CommonEmployeeForm({ formControls = [], btnText, handleSubmit }) {
   const {
     loading,
     fullname,
@@ -58,29 +54,6 @@ function CommonEmployeeForm({
       ? setDepartment(value)
       : null;
   };
-  // useEffect(() => {
-  //   if (employeeFormData) {
-  //     setFullname(employeeFormData.getValues().fullname || "");
-  //     setEmail(employeeFormData.getValues().email || "");
-  //     setPhone(employeeFormData.getValues().phone || "");
-  //     setSalary(employeeFormData.getValues().salary || "");
-  //     setDepartment(employeeFormData.getValues().department || "");
-  //     console.log(employeeFormData.getValues().fullname, employeeFormData.getValues().email, employeeFormData.getValues().phone, employeeFormData.getValues().salary, employeeFormData.getValues().department);
-  //   }
-  // }, [employeeFormData]);
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//         console.log(fullname, email, phone, salary, department);
-//         const fulnam = fullname;
-//         const emal = email;
-//         const phon = phone;
-//         const salry = salary;
-//         const dep = department;
-//     }, 2000); // Delay of 2000 milliseconds (2 seconds)
-
-//     // Cleanup function to clear the timer if the component unmounts
-//     return () => clearTimeout(timer);
-// }, [fullname, email, phone, salary, department]);
   const inputStyles =
     "w-full rounded h-[50px] border-none text-black bg-gray-200 text-[16px] outline-none drop-shadow-sm transition-all duration-300 ease-in-out focus:bg-gray-100 focus:drop-shadow-lg focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
   return (
@@ -93,7 +66,6 @@ function CommonEmployeeForm({
                 key={controlItem.id}
                 name={controlItem.id}
                 render={() => {
-                  // console.log(field);
                   return (
                     <FormItem>
                       <FormLabel>{controlItem.label}</FormLabel>
@@ -102,16 +74,9 @@ function CommonEmployeeForm({
                           <Input
                             placeholder={controlItem.placeholder}
                             type={controlItem.type}
-                            // {...field}
-                            value={
-                              // currentEditId
-                              //  field.value
-                              setValue(controlItem.label)
-                            }
-                            onChange={
-                              // currentEditId
-                              //  field.onChange
-                              (e) => setState(controlItem.label, e.target.value)
+                            value={setValue(controlItem.label)}
+                            onChange={(e) =>
+                              setState(controlItem.label, e.target.value)
                             }
                             className={inputStyles}
                           />
@@ -119,20 +84,16 @@ function CommonEmployeeForm({
                       ) : controlItem.componentType === "select" ? (
                         <Select
                           value={
-                            // currentEditId
-                             controlItem.options.find(
-                                (optionItem) =>
-                                  optionItem.label === setValue(controlItem.label)
-                              )?.id
-                            
+                            controlItem.options.find(
+                              (optionItem) =>
+                                optionItem.label === setValue(controlItem.label)
+                            )?.id
                           }
                           onValueChange={(selectedId) => {
                             const selectedOption = controlItem.options.find(
                               (optionItem) => optionItem.id === selectedId
                             );
                             if (selectedOption) {
-                              // currentEditId ?
-                              // (field.onChange(selectedOption.label))
                               setState(controlItem.label, selectedOption.label);
                             }
                           }}

@@ -3,14 +3,7 @@ import CommonButton from "../common-button";
 import LoadingIndicator from "../common-loader";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 function CommonAuthForm({
   formControls = [],
@@ -28,7 +21,6 @@ function CommonAuthForm({
     setUsername,
     password,
     setPassword,
-    employeeFormData,
   } = useContext(ContextComponent);
   const setValue = (label) => {
     if (formData) {
@@ -67,8 +59,7 @@ function CommonAuthForm({
                 control={formData.control}
                 key={controlItem.id}
                 name={controlItem.id}
-                render={({ field }) => {
-                  // console.log(field);
+                render={() => {
                   return (
                     <FormItem>
                       <FormLabel>{controlItem.label}</FormLabel>
@@ -77,61 +68,13 @@ function CommonAuthForm({
                           <Input
                             placeholder={controlItem.placeholder}
                             type={controlItem.type}
-                            {...field}
-                            value={
-                              // currentEditId
-                              //  field.value
-                              setValue(controlItem.label)
-                            }
-                            onChange={
-                              // currentEditId
-                              //  field.onChange
-                              (e) => setState(controlItem.label, e.target.value)
+                            value={setValue(controlItem.label)}
+                            onChange={(e) =>
+                              setState(controlItem.label, e.target.value)
                             }
                             className={inputStyles}
                           />
                         </FormControl>
-                      ) : controlItem.componentType === "select" ? (
-                        <Select
-                          value={
-                            // currentEditId
-                            //  controlItem.options.find(
-                            //     (optionItem) =>
-                            //       optionItem.label === field.value
-                            //   )?.id
-                            setValue(controlItem.label)
-                          }
-                          onValueChange={(selectedId) => {
-                            const selectedOption = controlItem.options.find(
-                              (optionItem) => optionItem.id === selectedId
-                            );
-                            if (selectedOption) {
-                              // currentEditId ?
-                              // (field.onChange(selectedOption.label))
-                              setState(controlItem.label, selectedOption.label);
-                            }
-                          }}
-                        >
-                          <FormControl>
-                            <SelectTrigger className={inputStyles}>
-                              <SelectValue
-                                placeholder={controlItem.placeholder}
-                                className="text-black focus:text-black"
-                              />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="bg-white">
-                            {controlItem.options.map((optionItem) => (
-                              <SelectItem
-                                value={optionItem.id}
-                                className="text-black cursor-pointer focus:text-black"
-                                key={optionItem.id}
-                              >
-                                {optionItem.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
                       ) : null}
                     </FormItem>
                   );

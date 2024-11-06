@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes,  authentication_classes
-
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import *
@@ -29,25 +28,18 @@ def EmployeeListCreate(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def EmployeeDetail(request, pk):
-  print(pk)
-  print(request.data, 1)
   if request.method == 'GET':
     employee = Employee.objects.get(id=pk)
     serializer = EmployeeSerializer(employee)
     return Response(serializer.data, status=status.HTTP_200_OK)
   elif request.method == 'PUT':
-    print("Came Here")
-    print(request.data, 2)
     employee = Employee.objects.get(id=pk)
-    print(request.data, 3)
     serializer = EmployeeSerializer(employee, data=request.data)
-    print(request.data, 4)
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data, status=status.HTTP_200_OK)
-    print(request.data, 5)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])

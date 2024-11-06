@@ -1,6 +1,5 @@
 import React from "react";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
-
 import {
   Card,
   CardContent,
@@ -9,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Superscript } from "lucide-react";
 
 function CommonEmployeeCard({
   fullname,

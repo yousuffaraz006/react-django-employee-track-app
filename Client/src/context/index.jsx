@@ -1,6 +1,7 @@
 import { useToast } from "@/hooks/use-toast";
 import { createContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export const ContextComponent = createContext(null);
 function ProviderComponent({ children }) {
@@ -18,6 +19,7 @@ function ProviderComponent({ children }) {
   const [currentEditId, setCurrentEditId] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
   const authFormData = useForm({
     defaultValues: {
       email: "",
@@ -65,6 +67,7 @@ function ProviderComponent({ children }) {
         showDialog,
         setShowDialog,
         toast,
+        navigate,
       }}
     >
       {children}

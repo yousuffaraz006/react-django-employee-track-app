@@ -4,8 +4,8 @@ import CommonLayout from "./components/common-layout";
 import NotFound from "./pages/notfound";
 import SignUp from "./pages/auth/signup";
 import SignIn from "./pages/auth/signin";
-import AboutPage from "./pages/home/about";
 import ContactPage from "./pages/home/contact";
+import DetailPage from "./pages/home/about";
 
 function App() {
   function Logout() {
@@ -23,7 +23,7 @@ function App() {
       <Route path="/logout" element={<Logout />} />
       <Route path="/" element={<CommonLayout />}>
         <Route path="" element={<HomePage />} />
-        <Route path="about" element={<AboutPage />} />
+        <Route path="detail/:pk" element={<DetailPage />} />
         <Route path="contact" element={<ContactPage />} />
       </Route>
       <Route path="*" element={<NotFound />} />

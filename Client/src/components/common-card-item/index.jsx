@@ -4,7 +4,7 @@ import CommonEmployeeCard from "../common-employee-card";
 import { ContextComponent } from "@/context";
 
 function CommonCardItem({ employee, deleteEmployee }) {
-  const { setShowDialog, setCurrentEditId, employeeFormData } = useContext(ContextComponent);
+  const { setShowDialog, setCurrentEditId, employeeFormData, navigate } = useContext(ContextComponent);
   return (
     <CommonEmployeeCard
       fullname={employee.fullname}
@@ -17,13 +17,14 @@ function CommonCardItem({ employee, deleteEmployee }) {
           <CommonButton
             buttonText={"Edit"}
             onClick={() => {
-              setShowDialog(true);
+              // setShowDialog(true);
+              navigate(`/detail/${employee.id}`)
               setCurrentEditId(employee?.id);
-              employeeFormData.setValue("fullname", employee?.fullname);
-              employeeFormData.setValue("email", employee?.email);
-              employeeFormData.setValue("phone", employee?.phone);
-              employeeFormData.setValue("department", employee?.department);
-              employeeFormData.setValue("salary", employee?.salary);
+              // employeeFormData.setValue("fullname", employee?.fullname);
+              // employeeFormData.setValue("email", employee?.email);
+              // employeeFormData.setValue("phone", employee?.phone);
+              // employeeFormData.setValue("department", employee?.department);
+              // employeeFormData.setValue("salary", employee?.salary);
             }}
           />
           <CommonButton

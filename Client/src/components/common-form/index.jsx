@@ -68,14 +68,14 @@ function CommonEmployeeForm({
       setPhone(employeeFormData.getValues().phone || "");
       setSalary(employeeFormData.getValues().salary || "");
       setDepartment(employeeFormData.getValues().department || "");
-      console.log(fullname, email, phone, salary, department);
+      console.log(employeeFormData.getValues().fullname, employeeFormData.getValues().email, employeeFormData.getValues().phone, employeeFormData.getValues().salary, employeeFormData.getValues().department);
     }
   }, [employeeFormData]);
   const inputStyles =
     "w-full rounded h-[50px] border-none text-black bg-gray-200 text-[16px] outline-none drop-shadow-sm transition-all duration-300 ease-in-out focus:bg-gray-100 focus:drop-shadow-lg focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
   return (
     <Form {...employeeFormData}>
-      <form onSubmit={employeeFormData.handleSubmit(handleSubmit)}>
+      <form onSubmit={handleSubmit}>
         {formControls?.length > 0
           ? formControls.map((controlItem) => (
               <FormField

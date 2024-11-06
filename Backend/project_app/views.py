@@ -29,8 +29,8 @@ def EmployeeListCreate(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT'])
-@permission_classes([IsAuthenticated])
-def EmployeeUpdate(request, pk):
+@permission_classes([AllowAny])
+def EmployeeDetail(request, pk):
   print(pk)
   print(request.data, 1)
   if request.method == 'GET':

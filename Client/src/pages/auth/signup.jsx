@@ -1,6 +1,6 @@
 import api from "@/api";
 import CommonButton from "@/components/common-button";
-import CommonForm from "@/components/common-form";
+import CommonAuthForm from "@/components/common-form/index1";
 import { signUpFormControls } from "@/config";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/constants";
 import { ContextComponent } from "@/context";
@@ -41,7 +41,7 @@ function SignUp() {
       <div className="flex flex-col h-full justify-center items-center bg-white">
         <h3 className="text-3xl font-bold">Welcome</h3>
         <div className="mt-4 ">
-          <CommonForm
+          <CommonAuthForm
             formControls={signUpFormControls}
             formData={authFormData}
             btnText={"Sign Up"}

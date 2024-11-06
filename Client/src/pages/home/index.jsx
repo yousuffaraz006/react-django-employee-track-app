@@ -98,44 +98,6 @@ function HomePage() {
         setLoading(false);
       });
   };
-  const updateEmployee = (e, employeeId) => {
-    e.preventDefault();
-    setLoading(true);
-    api
-      .put(`/employee/update/${employeeId}/`, {
-        fullname,
-        email,
-        phone,
-        salary,
-        department,
-      })
-      .then((res) => {
-        if (res.status === 200 || res.status === 204) {
-          // Check for both 200 and 204
-          toast({
-            title: "Employee updated successfully",
-          });
-          getEmployee();
-          setLoading(false);
-          setShowDialog(false);
-        } else {
-          toast({
-            title: "Error",
-            description: "Employee not updated: " + res.status,
-            variant: "failure",
-          });
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        toast({
-          title: "Error",
-          description: String(err),
-          variant: "failure",
-        });
-        setLoading(false);
-      });
-  };
   const deleteEmployee = (pk) => {
     setLoading(true);
     api

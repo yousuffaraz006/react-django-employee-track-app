@@ -4,16 +4,15 @@ import { useContext } from "react";
 import CommonDialog from "../common-dialog";
 
 function CommonAddEdit({ handleSubmit }) {
-  const { employeeFormData, showDialog, setShowDialog, currentEditId } =
+  const { showDialog, setShowDialog, currentEditId, currentDeleteId } =
     useContext(ContextComponent);
   return (
     <CommonDialog
-      formControls={addNewEmployeeFormControls}
-      formData={employeeFormData}
+      formControls={currentDeleteId ? [] : addNewEmployeeFormControls}
       showDialog={showDialog}
       setShowDialog={setShowDialog}
-      title={currentEditId ? "Edit Employee" : "Add New Employees"}
-      btnText={currentEditId ? "Save" : "Add"}
+      title={currentEditId ? "Edit Employee" : currentDeleteId ? "Delete Employee" : "Add Employee"}
+      btnText={currentEditId ? "Save" : currentDeleteId ? "Delete" : "Add"}
       handleSubmit={handleSubmit}
     />
   );

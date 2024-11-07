@@ -15,6 +15,7 @@ import { useContext } from "react";
 function CommonForm({ formControls = [], btnText, handleSubmit }) {
   const {
     loading,
+    formData,
     firstname,
     setFirstname,
     lastname,
@@ -33,7 +34,6 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
     setSalary,
     department,
     setDepartment,
-    employeeFormData,
   } = useContext(ContextComponent);
   const setValue = (label) => {
     return label === "First Name"
@@ -57,7 +57,6 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
       : null;
   };
   const setState = (label, value) => {
-    console.log(label, value);
     label === "First Name"
       ? setFirstname(value)
       : label === "Last Name"
@@ -81,12 +80,12 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
   const inputStyles =
     "w-full rounded h-[50px] border-none text-black bg-gray-200 text-[16px] outline-none drop-shadow-sm transition-all duration-300 ease-in-out focus:bg-gray-100 focus:drop-shadow-lg focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
   return (
-    <Form {...employeeFormData}>
+    <Form {...formData}>
       <form onSubmit={handleSubmit}>
         {formControls?.length > 0
           ? formControls.map((controlItem) => (
               <FormField
-                control={employeeFormData.control}
+                control={formData.control}
                 key={controlItem.id}
                 name={controlItem.id}
                 render={() => {
@@ -103,6 +102,7 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
                               setState(controlItem.label, e.target.value)
                             }
                             className={inputStyles}
+                            required
                           />
                         </FormControl>
                       ) : controlItem.componentType === "select" ? (
@@ -121,6 +121,7 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
                               setState(controlItem.label, selectedOption.label);
                             }
                           }}
+                          required
                         >
                           <FormControl>
                             <SelectTrigger className={inputStyles}>

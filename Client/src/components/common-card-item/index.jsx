@@ -5,9 +5,17 @@ import { ContextComponent } from "@/context";
 import { ACCESS_TOKEN } from "@/constants";
 import axios from "axios";
 
-function CommonCardItem({ employee, deleteEmployee }) {
-  const { setFullname, setEmail, setPhone, setSalary, setDepartment, setShowDialog, setCurrentEditId } =
-    useContext(ContextComponent);
+function CommonCardItem({ employee }) {
+  const {
+    setFullname,
+    setEmail,
+    setPhone,
+    setSalary,
+    setDepartment,
+    setShowDialog,
+    setCurrentEditId,
+    setCurrentDeleteId,
+  } = useContext(ContextComponent);
   const fetchEmployeeDetail = async () => {
     try {
       const apiResponse = await axios.get(
@@ -18,7 +26,6 @@ function CommonCardItem({ employee, deleteEmployee }) {
           },
         }
       );
-      console.log(apiResponse.data);
       setFullname(apiResponse.data.fullname);
       setEmail(apiResponse.data.email);
       setPhone(apiResponse.data.phone);
@@ -41,14 +48,17 @@ function CommonCardItem({ employee, deleteEmployee }) {
           <CommonButton
             buttonText={"Edit"}
             onClick={() => {
-              setShowDialog(true);
-              setCurrentEditId(employee?.id);
               fetchEmployeeDetail();
+              setCurrentEditId(employee?.id);
+              setShowDialog(true);
             }}
           />
           <CommonButton
             buttonText={"Delete"}
-            onClick={() => deleteEmployee(employee.id)}
+            onClick={() => {
+              setCurrentDeleteId(employee?.id);
+              setShowDialog(true);
+            }}
           />
         </div>
       }

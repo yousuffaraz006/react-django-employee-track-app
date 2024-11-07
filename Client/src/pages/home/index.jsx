@@ -17,6 +17,8 @@ function HomePage() {
     setShowDialog,
     currentEditId,
     setCurrentEditId,
+    currentDeleteId,
+    setCurrentDeleteId,
     fullname,
     setFullname,
     email,
@@ -148,10 +150,10 @@ function HomePage() {
         });
       });
   };
-  const deleteEmployee = (pk) => {
+  const deleteEmployee = () => {
     setLoading(true);
     api
-      .delete(`/employee/delete/${pk}/`)
+      .delete(`/employee/delete/${currentDeleteId}/`)
       .then((res) => {
         if (res.status === 204) {
           toast({
@@ -160,6 +162,8 @@ function HomePage() {
           setEmployeesList([]);
           getEmployee();
           setLoading(false);
+          setCurrentDeleteId("");
+          setShowDialog(false);
         } else {
           toast({
             title: "Error",
@@ -181,7 +185,11 @@ function HomePage() {
   function handleSubmit(e) {
     if (currentEditId) {
       updateEmployee(e);
-    } else {
+    }
+    else if (currentDeleteId) {
+      deleteEmployee(e);
+    }
+    else {
       createEmployee(e);
     }
   }

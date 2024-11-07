@@ -17,17 +17,16 @@ function ProviderComponent({ children }) {
   const [salary, setSalary] = useState("");
   const [department, setDepartment] = useState("");
   const [currentEditId, setCurrentEditId] = useState(null);
+  const [currentDeleteId, setCurrentDeleteId] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const authFormData = useForm({
+  const formData = useForm({
     defaultValues: {
-      email: "",
+      firstname: "",
+      lastname: "",
+      username: "",
       password: "",
-    },
-  });
-  const employeeFormData = useForm({
-    defaultValues: {
       fullname: "",
       email: "",
       phone: "",
@@ -48,8 +47,7 @@ function ProviderComponent({ children }) {
         setUsername,
         password,
         setPassword,
-        authFormData,
-        employeeFormData,
+        formData,
         employeesList,
         setEmployeesList,
         fullname,
@@ -64,6 +62,8 @@ function ProviderComponent({ children }) {
         setPhone,
         currentEditId,
         setCurrentEditId,
+        currentDeleteId,
+        setCurrentDeleteId,
         showDialog,
         setShowDialog,
         toast,

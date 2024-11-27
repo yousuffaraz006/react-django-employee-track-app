@@ -1,7 +1,9 @@
+###  Added BASE CODE FILE
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
 from .models import *
 
+### Added Base Code ---
 class UserSerializer(ModelSerializer):
   class Meta:
     model = User
@@ -11,6 +13,7 @@ class UserSerializer(ModelSerializer):
   def create(self, validated_data):
     user = User.objects.create_user(**validated_data)
     return user
+### --- Added Base Code
   
 class EmployeeSerializer(ModelSerializer):
   class Meta:

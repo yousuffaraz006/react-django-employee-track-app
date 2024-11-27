@@ -1,14 +1,14 @@
+//  ###  Added BASE CODE FILE
 import { ContextComponent } from "@/context";
 import { LogOut } from "lucide-react";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Header() {
-  const { toast, setEmployeesList } = useContext(ContextComponent);
-  const navigate = useNavigate();
+  const { toast, setEmployeesList, navigate } = useContext(ContextComponent);
   async function handleLogout() {
     localStorage.clear();
-    setEmployeesList([]);
+    setEmployeesList([]);                                        //  ###  NOT BASE CODE
     navigate("/signin");
     toast({
       title: "Logging Out",
@@ -26,9 +26,11 @@ function Header() {
             <Link className="text-black text-xl font-bold" to={"/"}>
               Home
             </Link>
+            {/* ###  NOT BASE CODE //  ###  NOT BASE CODE ---------------------------------*/}
             <Link className="text-black text-xl font-bold" to={"/contact"}>
               Contact
             </Link>
+            {/*--------------------------------//  ###  NOT BASE CODE//  ###  NOT BASE CODE*/}
           </div>
           <div>
             <LogOut

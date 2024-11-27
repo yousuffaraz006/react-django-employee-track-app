@@ -1,3 +1,4 @@
+//  ###  Added BASE CODE FILE
 const LoadingIndicator = () => {
   return (
     <div className="loading-container">

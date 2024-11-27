@@ -1,3 +1,4 @@
+//  ###  Added BASE CODE FILE
 import { useToast } from "@/hooks/use-toast";
 import { createContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -5,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 export const ContextComponent = createContext(null);
 function ProviderComponent({ children }) {
-  const [loading, setLoading] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [isAuthorized, setIsAuthorized] = useState(null);            //   ### Added Base Code
+  const [loading, setLoading] = useState("");                     //   ### Added Base Code
+  const [firstname, setFirstname] = useState("");                //   ### Added Base Code
+  const [lastname, setLastname] = useState("");                   //   ### Added Base Code
+  const [username, setUsername] = useState("");                   //   ### Added Base Code
+  const [password, setPassword] = useState("");                  //   ### Added Base Code
   const [employeesList, setEmployeesList] = useState([]);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -19,35 +21,39 @@ function ProviderComponent({ children }) {
   const [currentEditId, setCurrentEditId] = useState(null);
   const [currentDeleteId, setCurrentDeleteId] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const formData = useForm({
-    defaultValues: {
-      firstname: "",
-      lastname: "",
-      username: "",
-      password: "",
-      fullname: "",
-      email: "",
-      phone: "",
-      salary: "",
-      department: "",
-    },
-  });
-  return (
-    <ContextComponent.Provider
-      value={{
-        loading,
-        setLoading,
-        firstname,
-        setFirstname,
-        lastname,
-        setLastname,
-        username,
-        setUsername,
-        password,
-        setPassword,
-        formData,
+  const { toast } = useToast();                                    //   ### Added Base Code
+  const navigate = useNavigate();                                  //   ### Added Base Code
+  const formData = useForm({                                       //   ### Added Base Code
+    defaultValues: {                                                 //   ### Added Base Code
+      firstname: "",                                                  //   ### Added Base Code
+      lastname: "",                                                 //   ### Added Base Code
+      username: "",                                                 //   ### Added Base Code
+      password: "",                                                 //   ### Added Base Code
+      fullname: "",                                                 //   ### Added Base Code
+      email: "",                                                  //   ### Added Base Code
+      phone: "",                                                  //   ### Added Base Code
+      salary: "",                                                 //   ### Added Base Code
+      department: "",                                                 //   ### Added Base Code
+    },                                                  //   ### Added Base Code
+  });                                                 //   ### Added Base Code
+  return (                                                //   ### Added Base Code
+    <ContextComponent.Provider                                                //   ### Added Base Code
+      value={{                                                //   ### Added Base Code
+        isAuthorized,                                               //   ### Added Base Code
+        setIsAuthorized,                                           //   ### Added Base Code
+        loading,                                                //   ### Added Base Code
+        setLoading,                                               //   ### Added Base Code
+        toast,                                                    //   ### Added Base Code
+        navigate,                                                   //   ### Added Base Code
+        firstname,                                                //   ### Added Base Code
+        setFirstname,                                               //   ### Added Base Code
+        lastname,                                               //   ### Added Base Code
+        setLastname,                                                //   ### Added Base Code
+        username,                                               //   ### Added Base Code
+        setUsername,                                                //   ### Added Base Code
+        password,                                               //   ### Added Base Code
+        setPassword,                                                //   ### Added Base Code
+        formData,                                               //   ### Added Base Code
         employeesList,
         setEmployeesList,
         fullname,
@@ -66,13 +72,11 @@ function ProviderComponent({ children }) {
         setCurrentDeleteId,
         showDialog,
         setShowDialog,
-        toast,
-        navigate,
-      }}
+      }}                                                            //   ### Added Base Code
     >
       {children}
-    </ContextComponent.Provider>
-  );
-}
+    </ContextComponent.Provider>                                     //   ### Added Base Code
+  );                                                            //   ### Added Base Code
+}                                                           //   ### Added Base Code
 
-export default ProviderComponent;
+export default ProviderComponent;                              //   ### Added Base Code

@@ -1,3 +1,4 @@
+//  ###  Added BASE CODE FILE
 import api from "@/api";
 import CommonAddEdit from "@/components/common-add-edit";
 import CommonButton from "@/components/common-button";
@@ -185,11 +186,9 @@ function HomePage() {
   function handleSubmit(e) {
     if (currentEditId) {
       updateEmployee(e);
-    }
-    else if (currentDeleteId) {
+    } else if (currentDeleteId) {
       deleteEmployee(e);
-    }
-    else {
+    } else {
       createEmployee(e);
     }
   }
@@ -206,13 +205,17 @@ function HomePage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-3">
           {employeesList?.length > 0 ? (
             employeesList?.map((employee) => (
-              <CommonCardItem key={employee.id} employee={employee} deleteEmployee={deleteEmployee} />
+              <CommonCardItem
+                key={employee.id}
+                employee={employee}
+                deleteEmployee={deleteEmployee}
+              />
             ))
           ) : (
             <h3>You have no employees.</h3>
           )}
         </div>
-        <CommonAddEdit handleSubmit={handleSubmit}/>
+        <CommonAddEdit handleSubmit={handleSubmit} />
       </div>
     </div>
   );

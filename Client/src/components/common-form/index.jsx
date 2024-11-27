@@ -1,3 +1,4 @@
+//  ###  Added BASE CODE FILE
 import { ContextComponent } from "@/context";
 import CommonButton from "../common-button";
 import LoadingIndicator from "../common-loader";
@@ -77,6 +78,16 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
       ? setDepartment(value)
       : null;
   };
+  // const stateMap = {
+  //   "First Name": { value: firstname, setter: setFirstname },
+  //   "Last Name": { value: lastname, setter: setLastname },
+  //   "Email": { value: username, setter: setUsername },
+  //   "Password": { value: password, setter: setPassword },
+  //   "Full Name": { value: fullname, setter: setFullname },
+  //   "Phone": { value: phone, setter: setPhone },
+  //   "Salary": { value: salary, setter: setSalary },
+  //   "Department": { value: department, setter: setDepartment },
+  // };
   const inputStyles =
     "w-full rounded h-[50px] border-none text-black bg-gray-200 text-[16px] outline-none drop-shadow-sm transition-all duration-300 ease-in-out focus:bg-gray-100 focus:drop-shadow-lg focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0";
   return (
@@ -101,6 +112,10 @@ function CommonForm({ formControls = [], btnText, handleSubmit }) {
                             onChange={(e) =>
                               setState(controlItem.label, e.target.value)
                             }
+                            // value={stateMap[label]?.value || ""}
+                            // onChange={(e) =>
+                            //   stateMap[label]?.setter(e.target.value)
+                            // }
                             className={inputStyles}
                             required
                           />

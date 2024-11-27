@@ -1,12 +1,14 @@
+//  ###  Added BASE CODE FILE
 import api from "@/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/constants";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Skeleton } from "../ui/skeleton";
+import { ContextComponent } from "@/context";
 
 function CommonLayout() {
-  const [isAuthorized, setIsAuthorized] = useState(null);
+  const { isAuthorized, setIsAuthorized }  = useContext(ContextComponent)
   useEffect(() => {
     auth().catch(() => setIsAuthorized(false));
   }, []);

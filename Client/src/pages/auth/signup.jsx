@@ -1,3 +1,4 @@
+//  ###  Added BASE CODE FILE
 import api from "@/api";
 import CommonButton from "@/components/common-button";
 import CommonForm from "@/components/common-form";
@@ -8,16 +9,31 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const { setLoading, firstname, lastname, username, password, setFirstname, setLastname, setUsername, setPassword, toast } =
-    useContext(ContextComponent);
-    const navigate = useNavigate();
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setLoading(true);
+  const {
+    setLoading,
+    firstname,
+    lastname,
+    username,
+    password,
+    setFirstname,
+    setLastname,
+    setUsername,
+    setPassword,
+    toast,
+  } = useContext(ContextComponent);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
       const first_name = firstname;
       const last_name = lastname;
-      await api.post("/user/register/", { first_name, last_name, username, password });
+      await api.post("/user/register/", {
+        first_name,
+        last_name,
+        username,
+        password,
+      });
       const { data } = await api.post("/token/", { username, password });
       localStorage.setItem(ACCESS_TOKEN, data.access);
       localStorage.setItem(REFRESH_TOKEN, data.refresh);
